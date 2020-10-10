@@ -1,2 +1,2 @@
 # magazine
-📰 Website for our school's unnamed newsletter
+📰 Website for our school's unnamed magazine
