@@ -12,6 +12,37 @@ import matter from 'gray-matter'
 var GithubSlugger = require('github-slugger')
 const fs = require('fs')
 var dateFormat = require('dateformat')
+import { orderBy, filter } from 'lodash'
+
+const Issue = ({ number }) => (
+  <a href="https://hackclub.com/slack/" className="badge">
+    Issue {number}
+    <style jsx>{`
+      a {
+        background-color: #b4436c;
+        color: white;
+        padding: 3px 12px 3px;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: 0.125s background-color ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        font-weight: bold;
+        border-radius: 999px;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 13px;
+        position: absolute;
+        margin-left: 15px;
+        margin-top: 10px;
+      }
+      a:hover,
+      a:focus {
+        background-color: var(--colors-purple);
+      }
+    `}</style>
+  </a>
+)
 
 export default function Home(props) {
   return (
@@ -36,25 +67,64 @@ export default function Home(props) {
           </Heading>
         </Container>
       </Box>
-      <Container sx={{ marginTop: '20px', marginBottom: '20px' }}>
+      <Container sx={{ marginTop: '30px', marginBottom: '20px' }}>
         <Grid columns={[null, null, 2, 3]} gap={4}>
           {props.posts.map(post => (
             <Link href={`/posts/${post.slug}`} sx={{ textDecoration: 'none' }}>
-              <Card variant="interactiveALT">
-                <Image
-                  src={post.image}
-                  sx={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                />
-                <Text sx={{ paddingLeft: '20px', paddingRight: '20px' }}>
-                  <Heading sx={{ marginTop: '10px', marginBottom: '12px' }}>
-                    {post.title}
-                  </Heading>
-                  by {post.author} | {dateFormat(post.date, 'mediumDate')}
-                </Text>
+              <Card
+                variant="interactiveALT"
+                sx={{
+                  display: 'flex',
+                  lineHeight: 0,
+                  height: '250px',
+                  flexDirection: 'column',
+                  width: '100%',
+                  backgroundImage: `url(${post.image})`,
+                  backgroundSize: 'cover',
+                  position: 'relative'
+                }}
+              >
+                <Box
+                  sx={{
+                    lineHeight: 'body',
+                    width: '100%'
+                  }}
+                >
+                  <Issue number={post.issue} />
+                  <Text
+                    sx={{
+                      paddingLeft: '20px',
+                      paddingRight: '20px',
+                      position: 'absolute',
+                      bottom: '0px',
+                      width: '100%',
+                      background: '#4D9078',
+                      color: 'white'
+                    }}
+                  >
+                    <Heading
+                      as="h2"
+                      sx={{
+                        marginTop: '10px',
+                        marginBottom: '12px',
+                        maxWidth: '100%'
+                      }}
+                    >
+                      {post.title}{' '}
+                      <span style={{ fontSize: '16px', fontWeight: '400' }}>
+                        by {post.author}
+                      </span>
+                    </Heading>
+                  </Text>
+                </Box>
               </Card>
             </Link>
           ))}
         </Grid>
+      </Container>
+      <Container sx={{ marginTop: '30px', marginBottom: '60px' }}>
+        <hr />
+        <Text sx={{ paddingTop: '16px' }}>© Interstellar 2020. </Text>
       </Container>
     </>
   )
@@ -63,7 +133,7 @@ export default function Home(props) {
 export async function getStaticProps() {
   var slugger = new GithubSlugger()
   const context = require.context('../posts', false, /\.md$/)
-  const posts = []
+  var posts = []
   console.log(context.keys())
   for (const key of context.keys()) {
     const post = key.slice(2)
@@ -74,9 +144,12 @@ export async function getStaticProps() {
       slug: slugger.slug(content.data.title),
       author: content.data.author,
       image: content.data.image ? content.data.image : null,
-      date: content.data.date
+      date: content.data.date,
+      issue: content.data.issue
     })
   }
+  posts = orderBy(posts, 'title')
+  posts = orderBy(posts, 'issue', 'desc')
   console.log(posts)
   return { props: { posts } }
 }
