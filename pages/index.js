@@ -63,7 +63,7 @@ export default function Home(props) {
             da name
           </Heading>
           <Heading as="h3" sx={{ marginTop: '10px' }}>
-            Exploring the global issues that impact you.
+            i ate food, and i couldn't think of a slogan
           </Heading>
         </Container>
       </Box>
