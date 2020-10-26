@@ -60,7 +60,7 @@ export default function Home(props) {
       >
         <Container>
           <Heading as="h1" sx={{ fontSize: '5em' }}>
-            Interstellar
+            da name
           </Heading>
           <Heading as="h3" sx={{ marginTop: '10px' }}>
             Exploring the global issues that impact you.
@@ -124,7 +124,7 @@ export default function Home(props) {
       </Container>
       <Container sx={{ marginTop: '30px', marginBottom: '60px' }}>
         <hr />
-        <Text sx={{ paddingTop: '16px' }}>© Interstellar 2020. </Text>
+        <Text sx={{ paddingTop: '16px' }}>NAME </Text>
       </Container>
     </>
   )
