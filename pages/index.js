@@ -98,7 +98,7 @@ export default function Home(props) {
                       position: 'absolute',
                       bottom: '0px',
                       width: '100%',
-                      background: '#4D9078',
+                      background: '#B4436C',
                       color: 'white'
                     }}
                   >
