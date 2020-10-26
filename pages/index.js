@@ -59,10 +59,10 @@ export default function Home(props) {
         }}
       >
         <Container>
-          <Heading as="h1" sx={{ fontSize: '5em' }}>
+          <Heading as="h1" sx={{ fontSize: '5em', textAlign: ['center', 'left', 'left'] }}>
             da name
           </Heading>
-          <Heading as="h3" sx={{ marginTop: '10px' }}>
+          <Heading as="h3" sx={{ marginTop: '10px', textAlign: ['center', 'left', 'left'] }}>
             i ate food, and i couldn't think of a slogan
           </Heading>
         </Container>
