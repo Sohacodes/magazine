@@ -1,2 +1,2 @@
 # magazine
-📰 Website for our school's unnamed magazine
+📰 Website for GWAS's unnamed magazine
